@@ -14,6 +14,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "test-startup": "node build/index.js",
+    "start": "node build/index.js",
     "test": "npm run lint && npm run format:check && npm run build && npm run test-startup",
     "prepublishOnly": "npm run build"
   },
