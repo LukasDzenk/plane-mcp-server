@@ -7,7 +7,7 @@ export async function makePlaneRequest(method, path, body = null) {
         "X-API-Key": process.env.PLANE_API_KEY || "",
     };
     // Only add Content-Type for non-GET requests
-    if (method.toUpperCase() !== 'GET') {
+    if (method.toUpperCase() !== "GET") {
         headers["Content-Type"] = "application/json";
     }
     try {
@@ -17,7 +17,7 @@ export async function makePlaneRequest(method, path, body = null) {
             headers,
         };
         // Only include body for non-GET requests
-        if (method.toUpperCase() !== 'GET' && body !== null) {
+        if (method.toUpperCase() !== "GET" && body !== null) {
             config.data = body;
         }
         const response = await axios(config);

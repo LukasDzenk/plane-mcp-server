@@ -327,11 +327,69 @@ This server unlocks all sorts of useful capabilities for anyone working with Pla
     - `worklog_id` (string, required): UUID of the worklog 
 
 
+## Transport Options
+
+The Plane MCP Server supports two transport mechanisms:
+
+### 1. Stdio Transport (Default)
+Best for local AI applications and subprocesses where the client launches the server as a subprocess.
+
+**How it works:**
+- Client launches server as subprocess
+- Communication via stdin/stdout streams
+- Automatic process management
+- Used by Claude Desktop, VSCode, and most MCP clients
+
+**Usage:**
+```bash
+npx @makeplane/plane-mcp-server
+```
+
+### 2. HTTP Transport (Remote Hosting)
+Best for remote deployments, web applications, and when you need to share the server across multiple clients.
+
+**How it works:**
+- Server runs as independent HTTP service
+- Supports multiple concurrent clients
+- Uses HTTP POST/GET with Server-Sent Events
+- Can be deployed to cloud platforms
+
+**Usage:**
+```bash
+git clone <this-repo>
+npm install
+npm run build
+PORT=3000 npm run start:http
+```
+
+**HTTP Endpoints:**
+- `GET /health` - Health check
+- `POST /mcp` - Send MCP messages
+- `GET /mcp` - Server-Sent Events stream
+
+**Client Configuration for HTTP:**
+Instead of using command/args, use a URL:
+```json
+{
+  "mcpServers": {
+    "plane": {
+      "url": "http://localhost:3000/mcp",
+      "env": {
+        "PLANE_API_KEY": "<YOUR_API_KEY>",
+        "PLANE_API_HOST_URL": "<HOST_URL_FOR_SELF_HOSTED>",
+        "PLANE_WORKSPACE_SLUG": "<YOUR_WORKSPACE_SLUG>"
+      }
+    }
+  }
+}
+```
+
 ## Configuration Parameters
 
 - `PLANE_API_KEY` - Your Plane API token. You can generate one from the Workspace Settings > API Tokens page (`/settings/api-tokens/`) in the Plane app. 
 - `PLANE_WORKSPACE_SLUG` - The workspace slug for your Plane instance. The workspace-slug represents the unique workspace identifier for a workspace in Plane. It can be found in the URL.
 - `PLANE_API_HOST_URL` (optional) - The host URL of the Plane API Server. Defaults to https://api.plane.so/
+- `PORT` (HTTP mode only) - Port for the HTTP server. Defaults to 3000.
 
 ## Usage
 

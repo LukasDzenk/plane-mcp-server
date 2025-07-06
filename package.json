@@ -8,18 +8,21 @@
   "type": "module",
   "author": "engineering@plane.so",
   "scripts": {
-    "build": "rm -rf build && tsc && chmod 755 build/index.js",
+    "build": "rm -rf build && tsc && chmod 755 build/index.js && chmod 755 build/index-http.js",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"*.js\"",
     "format:check": "prettier --check \"src/**/*.ts\"",
     "test-startup": "node build/index.js",
     "start": "node build/index.js",
+    "start:http": "node build/index-http.js",
+    "example:http": "node examples/http-client.js",
     "test": "npm run lint && npm run format:check && npm run build && npm run test-startup",
     "prepublishOnly": "npm run build"
   },
   "files": [
-    "build"
+    "build",
+    "examples"
   ],
   "repository": {
     "type": "git",
