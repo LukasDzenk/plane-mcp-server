@@ -9,7 +9,7 @@ yarn.lock
 
 # Build output
 dist/
-build/
+# build/  # Commented out so build files can be committed
 out/
 
 # Logs
